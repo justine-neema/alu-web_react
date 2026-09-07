@@ -1,58 +1,57 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
     mode: 'development',
-    entry: {
-        header: {
-            import: './modules/header/header.js',
-            dependOn: 'shared',
-        },
-        body: {
-            import: './modules/body/body.js',
-            dependOn: 'shared',
-        },
-        footer: {
-            import: './modules/footer/footer.js',
-            dependOn: 'shared',
-        },
-        shared: 'jquery',
-    },
-
-    output: {
-        filename: '[name].bundle.js',
-        path: path.resolve(__dirname, './public'),
-    },
-
-    devServer: {
-        port: 8564,
-        static: path.join(__dirname,  'public')
-    },
-    plugins: [new HtmlWebpackPlugin(), new CleanWebpackPlugin()],
     devtool: 'inline-source-map',
+    entry: {
+        header: './modules/header/header.js',
+        body: './modules/body/body.js',
+        footer: './modules/footer/footer.js'
+    },
+    output: {
+        path: path.resolve(__dirname, 'public'),
+        filename: '[name].bundle.js',
+        clean: true
+    },
     module: {
         rules: [
             {
                 test: /\.css$/i,
-                use: ["style-loader", "css-loader"],
+                use: ['style-loader', 'css-loader']
             },
             {
-                test: /\.(png|svg|jpg|jpeg|gif)$/i,
-                type: 'asset/resource',
-                use: ['file-loader', {
-                    loader: 'image-webpack-loader',
-                    options: {
-                        bypassOnDebug: true,
-                        disable: true
-                    },
-                },]
+                test: /\.(png|jpe?g|gif)$/i,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[hash].[ext]',
+                            outputPath: 'images'
+                        }
+                    }
+                ]
             }
-        ],
+        ]
+    },
+    plugins: [
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            title: 'Holberton Dashboard'
+        })
+    ],
+    devServer: {
+        port: 8564,
+        open: true
     },
     optimization: {
         splitChunks: {
-            chunks: 'all',
+            chunks: 'all'
         }
+    },
+    performance: {
+        maxAssetSize: 1000000,
+        maxEntrypointSize: 1000000
     }
 };

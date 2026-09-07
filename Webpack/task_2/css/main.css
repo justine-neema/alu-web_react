@@ -1,12 +1,12 @@
-#logo {
-	width: 200px;
-	height: 200px;
-	background-image: url('../assets/holberton-logo.jpg');
-	background-size: 200px 200px;
-	background-repeat: no-repeat;
+#count {
+    display: inline-block;
+    font-weight: bold;
+    margin-left: 10px;
 }
 
-#count {
-	font-weight: bold;
-	margin-left: 10px;
+#logo {
+    width: 200px;
+    height: 200px;
+    background-image: url('https://via.placeholder.com/200x200/FF0000/FFFFFF?text=HB');
+    background-size: 200px 200px;
 }

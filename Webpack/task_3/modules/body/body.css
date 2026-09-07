@@ -1,5 +1,9 @@
 #count {
-    display: inline;
+    display: inline-block;
     font-weight: bold;
-    margin: 0;
+    margin-left: 10px;
+}
+
+button {
+    margin: 10px 0;
 }
